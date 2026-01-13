@@ -1,0 +1,75 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" href="assets/css/main.css">
+    <title>Document</title>
+</head>
+<body>
+    	<div class="container">
+        <div class="row">
+            <div class="col-12">
+                <nav id="nav">
+                    <ul class="actions">
+                        <li><a href="/">Főoldal</a></li>
+
+                        <% if (currentUser) { %> 
+                            <li><a href="/messages">Üzenetek</a></li>
+                            
+                            <% if (currentUser.isAdmin == 1) { %>
+                                <li><a href="/admin">Admin Menü</a></li>
+                            <% } %>
+                            
+                            <li><a href="/logout">Kijelentkezés</a></li>
+
+                        <% } else { %>
+                            <li><a href="/login">Bejelentkezés</a></li>
+                            <li><a href="/register">Regisztráció</a></li>
+
+                        <% } %>
+                    </ul>
+                </nav>
+            </div>
+        </div>
+    </div>
+  <article id="messages" class="wrapper style2">
+    <div class="container">
+        <header>
+            <% if (currentUser && (currentUser.isAdmin == 1 || currentUser.isAdmin == 0)) { %>
+                <h2>Beérkezett Üzenetek</h2>
+            <% } %>
+        </header>
+
+        <div class="row">
+            <div class="col-12">
+
+                <% if (currentUser && (currentUser.isAdmin == 1 || currentUser.isAdmin == 0)) { %>
+                    
+                    <% if (messages.length > 0) { %>
+                        <ul class="default"> 
+                            <% messages.forEach(msg => { %>
+                                <li class="box style1">
+                                    <strong>Feladó:</strong> <%= msg.name %> (<%= msg.email %>)
+                                    <br>
+                                    <strong>Tárgy:</strong> <%= msg.subject %>
+                                    <br>
+                                    <strong>Üzenet:</strong> <%= msg.message %>
+                                    <br>
+                                    <strong>Küldés ideje:</strong>  <%= msg.created_at %>
+                                    </li>
+                            <% }); %>
+                        </ul>
+                    <% } else { %>
+                        <section class="box style1">
+                            <p>Még nem érkezett üzenet</p>
+                        </section>
+                    <% } %>
+
+                <% } %>
+            </div>
+        </div>
+    </div>
+</article>
+</body>
+</html>

@@ -1,0 +1,107 @@
+<!DOCTYPE html>
+<html lang="hu">
+<head>
+    <title>Admin Kezelőpult</title>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1, user-scalable=no" /> 
+    <link rel="stylesheet" href="assets/css/main.css" type="text/css" />
+    </head>
+
+<body class="is-preload">
+    
+    <div class="container">
+        <div class="row">
+            <div class="col-12">
+                <nav id="nav">
+                    <ul class="actions">
+                        <li><a href="/">Főoldal</a></li>
+
+                        <% if (currentUser) { %> 
+                            <li><a href="/messages">Üzenetek</a></li>
+                            
+                            <% if (currentUser.isAdmin == 1) { %>
+                                <li><a href="/admin">Admin Menü</a></li>
+                            <% } %>
+                            
+                            <li><a href="/logout">Kijelentkezés</a></li>
+
+                        <% } else { %>
+                            <li><a href="/login">Bejelentkezés</a></li>
+                            <li><a href="/register">Regisztráció</a></li>
+
+                        <% } %>
+                    </ul>
+                </nav>
+            </div>
+        </div>
+    </div>
+    
+    <article id="admin-content" class="wrapper style3">
+        <div class="container">
+            <div class="col-12">
+            <header>
+                <h2>Admin Kezelőpult</h2>
+                <p>Üdvözlünk, <%= userName %>! Itt láthatod a felhasználókat.</p>
+            </header>
+            
+            <div class="col-6-medium">
+                    <% if (users && users.length > 0) { %>
+                        
+                        <h3>Regisztrált Felhasználók Listája</h3>
+                        
+                        <ul class="default">
+                            <% 
+                                let nonAdminUsersFound = false;
+                                users.forEach(user => { 
+
+                                %>
+                                <% if (user.isAdmin != 1) { 
+                                    nonAdminUsersFound = true;
+                                %>
+                                    <li class="box style1">
+                                        <strong>ID:</strong> <%= user.id %>
+                                        <br>
+                                        <strong>Felhasználónév:</strong> <%= user.username %>
+                                        <br>
+                                        
+                                        <form action="/admin/delete-user" method="POST" style="display:inline-block; margin-top: 10px;">
+                                            <input type="hidden" name="userId" value="<%= user.id %>">
+                                            <button type="submit" class="button small alt" onclick="return confirm('Biztosan törölni szeretnéd a(z) <%= user.username %> felhasználót?');">
+                                                Törlés
+                                            </button>
+                                            <br>
+                                            <a href="/admin/modify-user/<%= user.id %>" class="button small alt" >
+                                                Módosítás
+                                            </a>
+                                        </form>
+                                    </li>
+                                <% } %>
+                            <% }); %>
+                            
+                            <% if (!nonAdminUsersFound) { %>
+                                <section class="box style1">
+                                    <p>Nincsenek további felhasználók, akiket listázni/törölni lehetne.</p>
+                                </section>
+                            <% } %>
+                            
+                        </ul>
+                        
+                    <% } else { %>
+                        <section class="box style1">
+                            <p>Jelenleg nincsenek felhasználók a rendszerben.</p>
+                        </section>
+                    <% } %>
+            </div>
+            </div>
+        </div>
+    </article>
+    
+    <script src="assets/js/jquery.min.js"></script>
+    <script src="assets/js/jquery.scrolly.min.js"></script>
+    <script src="assets/js/browser.min.js"></script>
+    <script src="assets/js/breakpoints.min.js"></script>
+    <script src="assets/js/util.js"></script>
+    <script src="assets/js/main.js"></script>
+    
+</body>
+</html>

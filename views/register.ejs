@@ -1,0 +1,52 @@
+<!DOCTYPE html>
+<html lang="hu">
+<head>
+    <title>Regisztráció</title>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1, user-scalable=no" /> 
+    <link rel="stylesheet" href="assets/css/main.css" type="text/css" />
+</head>
+
+<body class="is-preload"> 
+
+    <article id="register" class="wrapper style1">
+        <div class="container">
+            <div class="row">
+                <div class="col-12">
+                    <header>
+                        <h1><strong>Regisztráció</strong></h1>
+                    </header>
+                    
+                    <section class="box style1">
+                        <form action="/register" method="POST">
+                            
+                            <label for="uname">Felhasználónév:</label>
+                            <input type="text" name="uname" id="uname" required /><br>
+    
+                            <label for="pw">Jelszó:</label>
+                            <input type="password" name="pw" id="pw" required /><br>
+                            
+                            <ul class="actions">
+                                <li><button type="submit" class="button large">Regisztrálás</button></li>
+                            </ul>
+                        </form>
+                    </section>
+                    
+                    <footer>
+                        <p>Van már fiókod? <a href="/login">Jelentkezz be itt!</a></p>
+                        <p><a href="/">Vissza a főoldalra</a></p>
+                    </footer>
+                </div>
+            </div>
+        </div>
+    </article>
+
+    <script src="assets/js/jquery.min.js"></script>
+    <script src="assets/js/jquery.scrolly.min.js"></script>
+    <script src="assets/js/browser.min.js"></script>
+    <script src="assets/js/breakpoints.min.js"></script>
+    <script src="assets/js/util.js"></script>
+    <script src="assets/js/main.js"></script>
+
+</body>
+</html>
