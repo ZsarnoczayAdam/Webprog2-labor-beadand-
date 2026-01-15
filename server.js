@@ -8,7 +8,7 @@ const bcrypt = require('bcrypt');
 const path = require('path');
 
 const app = express();
-const port = 4114;
+const port = 4163;
 
 let pool;
 
@@ -305,7 +305,6 @@ app.get('/logout', (req, res) => {
         res.redirect('/');
     });
 });
-
 
 
 initializePool().then(() => {
